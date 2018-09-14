@@ -8,6 +8,7 @@ public class player : MonoBehaviour {
     public int velocidad;
     private Transform trans;
 	private Animator anim;
+	public GameObject bala;
 
 	// Use this for initialization
 	void Start () {
@@ -58,9 +59,19 @@ public class player : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		
+		//trans.eulerAngles = 
+
 		if (Input.GetAxis("Fire1") !=0 && anim.GetCurrentAnimatorStateInfo(0).IsName("nada")){
 			anim.SetTrigger("shoot");
-			Debug.Log("Animation called");
+			//Instantiate (bala, transform.position, Quaternion.identity);
+			Rigidbody2D rbala;
+			GameObject bullet=GameObject.Instantiate(bala, transform.position, transform.rotation) as GameObject;
+			Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			Vector2 vect = new Vector2(mousePos.x -transform.position.x ,mousePos.y - transform.position .y );
+			rbala = bullet.GetComponent<Rigidbody2D>();
+			vect = vect.normalized;
+			rbala.velocity= vect *70;
 		}
 			
 	}
