@@ -7,12 +7,14 @@ public class player : MonoBehaviour {
     public int fuerza;
     public int velocidad;
     private Transform trans;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 	
 		rb = GetComponent<Rigidbody2D>();
 		trans = GetComponent<Transform>();
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -35,6 +37,7 @@ public class player : MonoBehaviour {
         //Debug.Log(angulo);
         //trans.rotation = new Quaternion(0, 0 , angulo , 0);; 
         //rotacion.z =mousePos.z;
+		
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
 			Vector2 vector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             float inputHorizontal = Input.GetAxis ("Horizontal");
@@ -52,5 +55,13 @@ public class player : MonoBehaviour {
 		}
 
 		
+	}
+
+	void FixedUpdate () {
+		if (Input.GetAxis("Fire1") !=0 && anim.GetCurrentAnimatorStateInfo(0).IsName("nada")){
+			anim.SetTrigger("shoot");
+			Debug.Log("Animation called");
+		}
+			
 	}
 }
